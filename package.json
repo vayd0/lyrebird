@@ -5,8 +5,8 @@
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "concurrently -k -n renderer,electron,app \"vite\" \"tsc -p tsconfig.electron.json -w\" \"wait-on tcp:5173 && electron .\"",
-    "build": "dotnet build media-bridge -c Release && tsc -p tsconfig.electron.json && vite build",
-    "package": "npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
+    "build": "dotnet publish media-bridge -c Release && tsc -p tsconfig.electron.json && vite build",
+    "package": "npm run build && electron-builder",
     "start": "electron ."
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "icon": "src/assets/img/icon.ico",
     "extraResources": [
       {
-        "from": "media-bridge/bin/Release/net9.0-windows10.0.19041.0/",
+        "from": "media-bridge/bin/Release/net9.0-windows10.0.19041.0/win-x64/publish/",
         "to": "media-bridge",
         "filter": ["**/*"]
       },

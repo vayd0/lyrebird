@@ -41,6 +41,7 @@ export interface Settings {
     alignment: 'center' | 'left' | 'right';
     showPastLyrics: boolean;
     fadeEdges: boolean;
+    offset: number;
   };
   behavior: {
     autoHideOnPause: boolean;

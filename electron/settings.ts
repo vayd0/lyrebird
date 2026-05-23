@@ -31,6 +31,7 @@ export interface Settings {
     alignment: 'center' | 'left' | 'right';
     showPastLyrics: boolean;
     fadeEdges: boolean;
+    offset: number;
   };
   behavior: {
     autoHideOnPause: boolean;
@@ -70,6 +71,7 @@ export const defaults: Settings = {
     alignment: 'center',
     showPastLyrics: true,
     fadeEdges: true,
+    offset: 0.5,
   },
   behavior: {
     autoHideOnPause: false,

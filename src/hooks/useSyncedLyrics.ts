@@ -4,7 +4,8 @@ import { LyricLine } from '../types';
 export function useSyncedLyrics(
   lyrics: LyricLine[] | null,
   serverPosition: number,
-  isPlaying: boolean
+  isPlaying: boolean,
+  offset: number = 0.5
 ): number {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const positionRef = useRef(serverPosition);
@@ -30,7 +31,7 @@ export function useSyncedLyrics(
 
     const tick = () => {
       const elapsed = (Date.now() - timestampRef.current) / 1000;
-      const estimated = positionRef.current + (isPlaying ? elapsed : 0) + 0.25;
+      const estimated = positionRef.current + (isPlaying ? elapsed : 0) + offset;
       setCurrentIndex(findIndex(estimated));
     };
 

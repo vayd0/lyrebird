@@ -196,6 +196,7 @@ export default function SettingsView() {
                   />
                   <Toggle label="Show past lines" value={settings.lyrics.showPastLyrics} onChange={(v) => update('lyrics.showPastLyrics', v)} />
                   <Toggle label="Fade edges" value={settings.lyrics.fadeEdges} onChange={(v) => update('lyrics.fadeEdges', v)} />
+                  <Slider label="Sync offset" value={settings.lyrics.offset} min={-1} max={2} step={0.1} suffix=" s" onChange={(v) => update('lyrics.offset', v)} />
                 </div>
               </div>
             )}

@@ -27,7 +27,7 @@ export default function OverlayView() {
 
   const isPlaying = media?.status === 'Playing';
   const isSynced = lyrics !== null && lyrics.length > 0 && lyrics[0].time >= 0;
-  const currentIndex = useSyncedLyrics(isSynced ? lyrics : null, media?.position ?? 0, isPlaying);
+  const currentIndex = useSyncedLyrics(isSynced ? lyrics : null, media?.position ?? 0, isPlaying, settings?.lyrics.offset ?? 0.5);
 
   if (!settings) return null;
 
