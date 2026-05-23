@@ -38,6 +38,10 @@
         "from": "media-bridge/bin/Release/net9.0-windows10.0.19041.0/",
         "to": "media-bridge",
         "filter": ["**/*"]
+      },
+      {
+        "from": "src/assets/img/icon.ico",
+        "to": "icon.ico"
       }
     ],
     "win": {

@@ -13,6 +13,10 @@ let tray: Tray | null = null;
 let currentTrackKey = '';
 let currentThumbnail: string | null = null;
 let currentLyrics: any[] | null = null;
+
+const iconPath = app.isPackaged
+  ? path.join(process.resourcesPath, 'icon.ico')
+  : path.join(__dirname, '../src/assets/img/icon.ico');
 let currentLyricsStatus = 'idle';
 let settings: Settings;
 
@@ -92,7 +96,7 @@ function openSettingsWindow() {
     transparent: true,
     hasShadow: false,
     backgroundColor: '#00000000',
-    icon: path.join(__dirname, '../src/assets/img/icon.ico'),
+    icon: iconPath,
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -227,7 +231,6 @@ function startMediaDetection() {
 app.whenReady().then(() => {
   createMainWindow();
 
-  const iconPath = path.join(__dirname, '../src/assets/img/icon.ico');
   const icon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 });
   tray = new Tray(icon);
   tray.setToolTip('Lyrebird');
