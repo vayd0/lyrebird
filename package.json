@@ -1,0 +1,49 @@
+{
+  "name": "lyrebird",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k -n renderer,electron,app \"vite\" \"tsc -p tsconfig.electron.json -w\" \"wait-on tcp:5173 && electron .\"",
+    "build": "dotnet build media-bridge -c Release && tsc -p tsconfig.electron.json && vite build",
+    "package": "npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.lyrebird.app",
+    "productName": "Lyrebird",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "icon": "src/assets/img/icon.png",
+    "extraResources": [
+      {
+        "from": "media-bridge/bin/Release/net9.0-windows10.0.19041.0/",
+        "to": "media-bridge",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false,
+      "rfc3161TimeStampServer": null
+    }
+  }
+}

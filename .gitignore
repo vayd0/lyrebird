@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist-electron/
+release/
+*.js.map
+.vite/
+media-bridge/bin/
+media-bridge/obj/
