@@ -26,6 +26,7 @@ export async function fetchLyrics(
     const { artist: ytArtist, title: ytTitle } = extractFromYouTube(artist, title);
     const cleanedYtTitle = ytTitle ? cleanTitle(ytTitle) : '';
 
+
     const attempts: [string, () => Promise<LyricLine[] | null>][] = [
       ['exact', () => tryGet(artist, title, album, duration)],
       ['cleaned artist', () => tryGet(cleanedArtist, title, album, duration)],
