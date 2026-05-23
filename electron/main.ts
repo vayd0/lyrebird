@@ -185,7 +185,7 @@ function startMediaDetection() {
   mediaDetector = new MediaDetector();
 
   mediaDetector.on('update', (info) => {
-    if (info.trackChanged && info.thumbnail) {
+    if (info.thumbnail && info.thumbnail !== currentThumbnail) {
       currentThumbnail = info.thumbnail;
       mainWindow?.webContents.send('thumbnail-update', info.thumbnail);
     }
