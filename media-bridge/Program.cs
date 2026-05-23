@@ -62,7 +62,7 @@ while (true)
                 Duration = Math.Round(timeline.EndTime.TotalSeconds, 2),
                 Status = playback.PlaybackStatus.ToString(),
                 TrackChanged = trackChanged,
-                Thumbnail = trackChanged ? cachedThumbnail : null
+                Thumbnail = cachedThumbnail
             };
 
             Console.WriteLine(JsonSerializer.Serialize(info, options));

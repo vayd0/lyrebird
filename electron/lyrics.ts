@@ -23,6 +23,9 @@ export async function fetchLyrics(
     const cleanedTitle = cleanTitle(title);
     const firstArtist = extractFirstArtist(cleanedArtist);
 
+    const { artist: ytArtist, title: ytTitle } = extractFromYouTube(artist, title);
+    const cleanedYtTitle = ytTitle ? cleanTitle(ytTitle) : '';
+
     const attempts: [string, () => Promise<LyricLine[] | null>][] = [
       ['exact', () => tryGet(artist, title, album, duration)],
       ['cleaned artist', () => tryGet(cleanedArtist, title, album, duration)],
@@ -31,10 +34,25 @@ export async function fetchLyrics(
       ['cleaned title', () => tryGet(cleanedArtist, cleanedTitle, '', 0)],
       ['first artist', () => tryGet(firstArtist, title, '', 0)],
       ['first + cleaned title', () => tryGet(firstArtist, cleanedTitle, '', 0)],
-      ['search', () => trySearch(cleanedArtist, title, cleanedArtist, title)],
-      ['search first artist', () => trySearch(firstArtist, title, firstArtist, title)],
-      ['search cleaned', () => trySearch(cleanedArtist, cleanedTitle, cleanedArtist, cleanedTitle)],
     ];
+
+    if (ytArtist && ytTitle) {
+      attempts.push(
+        ['yt split', () => tryGet(ytArtist, ytTitle, '', 0)],
+        ['yt split cleaned', () => tryGet(ytArtist, cleanedYtTitle, '', 0)],
+      );
+    }
+
+    attempts.push(
+      ['search', () => trySearch(cleanedArtist, cleanedTitle, cleanedArtist, cleanedTitle)],
+      ['search first artist', () => trySearch(firstArtist, cleanedTitle, firstArtist, cleanedTitle)],
+    );
+
+    if (ytArtist && ytTitle) {
+      attempts.push(
+        ['search yt', () => trySearch(ytArtist, cleanedYtTitle, ytArtist, cleanedYtTitle)],
+      );
+    }
 
     for (const [name, fn] of attempts) {
       const result = await fn();
@@ -136,8 +154,9 @@ function extractLyrics(data: LrcLibResult): LyricLine[] | null {
 
 function cleanTitle(title: string): string {
   return title
-    .replace(/\s*[\(\[].*(feat|ft|featuring|remix|remaster|deluxe|bonus|edit|version|mix|live|acoustic|radio|explicit|clean).*[\)\]]/gi, '')
+    .replace(/\s*[\(\[].*(official\s*(music\s*)?video|official\s*audio|official\s*lyric\s*video|lyric\s*video|lyrics|music\s*video|video\s*oficial|visualizer|clip\s*officiel|MV|M\/V|audio|hd|hq|4k|\d{4}\s*remaster|feat|ft|featuring|remix|remaster|deluxe|bonus|edit|version|mix|live|acoustic|radio|explicit|clean).*[\)\]]/gi, '')
     .replace(/\s*-\s*(feat|ft|featuring)\.?\s*.*/gi, '')
+    .replace(/\s*[\|丨]\s*.*$/g, '')
     .trim();
 }
 
@@ -146,6 +165,24 @@ function cleanArtist(artist: string): string {
     .split(/\s*[—–]\s*/)[0]
     .split(/\s*-\s*(?:EP|LP|Album|Single|Deluxe|Remaster)/i)[0]
     .trim();
+}
+
+function isYouTubeArtist(artist: string): boolean {
+  return /vevo$/i.test(artist) || /\s*-\s*topic$/i.test(artist) || !artist;
+}
+
+function extractFromYouTube(artist: string, title: string): { artist: string; title: string } {
+  const dashMatch = title.match(/^(.+?)\s*[-–—]\s+(.+)$/);
+  if (dashMatch) {
+    const [, left, right] = dashMatch;
+    if (isYouTubeArtist(artist) || normalize(artist) === normalize(left)) {
+      return { artist: left.trim(), title: right.trim() };
+    }
+  }
+  if (isYouTubeArtist(artist)) {
+    return { artist: artist.replace(/\s*-\s*topic$/i, '').replace(/vevo$/i, ''), title };
+  }
+  return { artist: '', title: '' };
 }
 
 function extractFirstArtist(artist: string): string {
