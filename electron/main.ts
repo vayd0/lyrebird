@@ -92,7 +92,7 @@ function openSettingsWindow() {
     transparent: true,
     hasShadow: false,
     backgroundColor: '#00000000',
-    icon: path.join(__dirname, '../src/assets/img/icon.png'),
+    icon: path.join(__dirname, '../src/assets/img/icon.ico'),
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -227,7 +227,7 @@ function startMediaDetection() {
 app.whenReady().then(() => {
   createMainWindow();
 
-  const iconPath = path.join(__dirname, '../src/assets/img/icon.png');
+  const iconPath = path.join(__dirname, '../src/assets/img/icon.ico');
   const icon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 });
   tray = new Tray(icon);
   tray.setToolTip('Lyrebird');

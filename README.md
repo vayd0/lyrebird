@@ -1,11 +1,3 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="src/assets/img/logo-white.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="src/assets/img/logo.svg" />
-    <img src="src/assets/img/logo.svg" width="120" alt="Lyrebird" />
-  </picture>
-</p>
-
 # Lyrebird
 
 Desktop lyrics overlay for Windows. Displays synced lyrics on top of your screen while you listen to music.

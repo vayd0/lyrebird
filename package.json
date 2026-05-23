@@ -32,7 +32,7 @@
       "dist/**/*",
       "dist-electron/**/*"
     ],
-    "icon": "src/assets/img/icon.png",
+    "icon": "src/assets/img/icon.ico",
     "extraResources": [
       {
         "from": "media-bridge/bin/Release/net9.0-windows10.0.19041.0/",
