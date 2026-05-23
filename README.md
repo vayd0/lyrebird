@@ -18,6 +18,14 @@ Works with any media player that supports Windows SMTC (Spotify, Apple Music, Ti
 - Launch on startup
 - Toggle overlay with `Alt+Shift+L`
 
+## Screenshots
+
+<p align="center">
+  <img src="src/assets/img/examples/ex1.png" alt="Example 1" width="100%" />
+  <br/><br/>
+  <img src="src/assets/img/examples/ex2.png" alt="Example 2" width="100%" />
+</p>
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org) (v18+)
