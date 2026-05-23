@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="src/assets/img/logo.svg" width="120" alt="Lyrebird" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="src/assets/img/logo-white.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="src/assets/img/logo.svg" />
+    <img src="src/assets/img/logo.svg" width="120" alt="Lyrebird" />
+  </picture>
 </p>
 
 # Lyrebird
