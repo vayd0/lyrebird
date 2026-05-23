@@ -228,6 +228,9 @@ function startMediaDetection() {
   mediaDetector.start();
 }
 
+app.commandLine.appendSwitch('enable-transparent-visuals');
+app.commandLine.appendSwitch('disable-gpu-compositing');
+
 app.whenReady().then(() => {
   createMainWindow();
 
