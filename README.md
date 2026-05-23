@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="src/assets/img/icon.png" width="120" alt="Lyrebird" />
+  <img src="src/assets/img/banner.png" alt="Lyrebird" width="100%" />
 </p>
-
-# Lyrebird
 
 Desktop lyrics overlay for Windows. Displays synced lyrics on top of your screen while you listen to music.
 
